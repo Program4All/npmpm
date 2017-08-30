@@ -28,11 +28,11 @@ const run = action((task_name: string, task: Task, project: Project, store: Stor
 
   task.outputs.push(`npm run ${task_name} ${new Date().toLocaleString()}`)
   process.stdout.on('data', (data: string) =>
-    task.outputs.push(...new TextDecoder("utf-8").decode(data).split(os.EOL)) && task.outputs.splice(-2000)
+    task.outputs.push(...new TextDecoder("utf-8").decode(data).split(os.EOL))
   )
 
   process.stderr.on('data', (data: string) =>
-    task.outputs.push(...new TextDecoder("utf-8").decode(data).split(os.EOL)) && task.outputs.splice(-2000)
+    task.outputs.push(...new TextDecoder("utf-8").decode(data).split(os.EOL)) 
   )
 
   process.on('close', (code) => {
@@ -61,7 +61,7 @@ export default observer(({ task_name, task_command, task, project, store }: Opts
     </div>
     <table className="table" style={{ marginTop: '40px' }}>
       <tbody style={{ backgroundColor: '#333', color: '#FFF' }}>
-        {task.outputs.map((line, index) => <tr key={index}><td>{line}</td></tr>)}
+        {task.outputs.slice(-2000).map((line, index) => <tr key={index}><td>{line}</td></tr>)}
       </tbody>
     </table>
   </div>
