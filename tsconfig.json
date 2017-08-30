@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "jsx": "react",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "alwaysStrict": false,
+    "noImplicitAny": true,
+    "experimentalDecorators": true
+  }
+}

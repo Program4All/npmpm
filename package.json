@@ -1,0 +1,38 @@
+{
+  "name": "npmpm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "window": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "$(npm bin)/webpack",
+    "build:watch": "$(npm bin)/webpack --watch",
+    "nw:osx": "$(npm bin)/nwbuild -r -p osx64 ./ --cacheDir ~/.cache/nwjs",
+    "nw:package": "$(npm bin)/nwbuild -p osx64,win32 ./ --cacheDir ~/.cache/nwjs -o ../npmpm-build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^8.0.25",
+    "@types/open": "^0.0.29",
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
+    "@types/react-router": "^4.0.15",
+    "@types/react-router-dom": "^4.0.7",
+    "@types/uuid": "^3.4.1",
+    "awesome-typescript-loader": "^3.2.3",
+    "mobx": "^3.2.2",
+    "mobx-react": "^4.2.2",
+    "nw-builder": "^3.4.1",
+    "open": "^0.0.5",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "source-map-loader": "^0.2.1",
+    "typescript": "^2.4.2",
+    "uuid": "^3.1.0",
+    "webpack": "^3.5.5"
+  }
+}
