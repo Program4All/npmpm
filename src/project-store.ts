@@ -1,29 +1,38 @@
 
-import { observable, autorun, computed, action, ObservableMap, extendObservable } from 'mobx'
-import { readFileSync, writeFileSync } from 'fs'
+import * as  fs from 'fs'
 import * as path from 'path'
+import * as mobx from 'mobx'
 
-const object2entries = (object: any) => Object.keys(object).map(key => [key, object[key]])
+type JsonBaseValueType = string | null | boolean | number
 
 class ProjectStore {
 
-  @observable root_path: string = ''
-  @observable props: Map<string, any> = new Map()
-  @observable scripts: Map<string, string> = new Map()
-  @observable deps: Map<string, [string, string]> = new Map()
-  @observable dev_deps: Map<string, [string, string]> = new Map()
+  @mobx.observable private project_path: string = ''
+  @mobx.observable private package_json_path: string = ''
+  @mobx.observable private package_json_string: string = ''
+  @mobx.observable private package_json: [string, JsonBaseValueType][] = []
 
-  constructor(root_path: string) {
-    this.root_path = root_path
-    const package_json = JSON.parse(readFileSync(path.join(root_path, 'package.json'), 'utf-8'))
-    for (const [key, value] of object2entries(package_json)){
-      // ({
-      //   'scripts':
-      // }[key] || () => {})
-      // if ([, 'dependencies', 'devDependencies'].indexOf(key) < 0) {
-      // } else {
-      // }
+  package_json_watcher: fs.FSWatcher
+  deps_watcher: fs.FSWatcher
+
+  _lock: boolean = true // 标记运行状态的
+  lock() { this._lock = true }
+  unlock() { this._lock = false }
+
+  inLock<A, R>(fn: (...arg: A[]) => R) {
+    return (...args: A[]): R => {
+      this.lock()
+      const result = fn(...args)
+      this.unlock()
+      return result
     }
+  }
+
+  @this.inLock
+  clear() {
+  }
+
+  init() {
   }
 
 }
